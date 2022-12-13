@@ -207,7 +207,7 @@
           link = document.createElement('link');
       link.rel = 'stylesheet';
       link.type = 'text/css';
-      link.href = 'https://assets.codepen.io/3198845/WMSidebarNavTESTING.css';
+      link.href = 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/sidebarNav@1/styles.min.css';
       head.appendChild(link);
     }
     init();

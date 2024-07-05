@@ -25,6 +25,10 @@
           section = elem.closest(settings.parentElem),
           anchorEl = document.createElement("div");
       
+      if (elem.dataset.target == 'next-section') {
+        section = elem.closest(settings.parentElem).nextElementSibling;
+      }
+      
 
       section.setAttribute('data-sidebar-item', title);
       anchorEl.setAttribute('id', titleAdjusted);
@@ -87,15 +91,25 @@
       );
     }
 
+    function getTitleAdjusted(section) {
+      const mapTargets = document.querySelector('[data-wm-plugin="section-sidenav"][data-mapping]') === null ? 'id' : 'attr';
+      if (mapTargets === 'attr') {
+        return section.getAttribute('data-sidebar-item').toLowerCase().split(' ').join('_')
+      } else {
+        return section.getAttribute('id').split('id-')[1]
+      }
+    }
+
     function checkSectionsInView(){
       mySections.forEach(section => {
         let inView = isElementInViewport(section),
-            title = section.getAttribute('id').split('id-')[1],
+            title = getTitleAdjusted(section),
             navItem = document.querySelector('.sidebar-item[href="#' + title + '"]');
+
         if (inView){
-          navItem.classList.add('in-view');
+          navItem?.classList.add('in-view');
         } else {
-          navItem.classList.remove('in-view');
+          navItem?.classList.remove('in-view');
         }
       });
     }

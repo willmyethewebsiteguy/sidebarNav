@@ -183,11 +183,17 @@
       sidebarNav.classList.add('open');
       checkSectionsInView();
       adjustSidebarIndicator();
+      setHeaderBottomPos()
     });
 
     function setHeaderBottomPos() {
-      let body = document.body,
-          header = document.querySelector('#header'),
+      let body = document.body;
+      if (document.querySelector('body.tweak-fixed-header-style-basic')) {
+        body.style.setProperty('--header-bottom', '0px');
+        return;
+      }
+
+      let header = document.querySelector('#header'),
           headerRect = header.getBoundingClientRect(),
           hBottom = headerRect.bottom > 0 ? headerRect.bottom + 'px' : '0px';
       body.style.setProperty('--header-bottom', hBottom);

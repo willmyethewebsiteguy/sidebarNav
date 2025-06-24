@@ -227,7 +227,7 @@
           link = document.createElement('link');
       link.rel = 'stylesheet';
       link.type = 'text/css';
-      link.href = 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/sidebarNav@1/styles.min.css';
+      link.href = 'https://cdn.jsdelivr.net/gh/willmyethewebsiteguy/sidebarNav@1/styles.min.css?v1';
       head.appendChild(link);
     }
     init();

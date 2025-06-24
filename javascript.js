@@ -61,7 +61,7 @@
     sidebarNav.appendChild(sidebarIndicator)
   }
 
-  function SidebarNav(mySections, sidebarNav){
+  function SidebarNav(mySections, sidebarNav, settings){
     let sidebarIndicator = document.querySelector('.sidebar-nav .sidebar-indicator'),
         mobileTrigger = document.querySelector('.sidebar-nav .mobile-trigger'),
         sectionCountInView = mySections.length - 1,
@@ -71,7 +71,7 @@
         navItem;
     
     function isElementInViewport(el) {
-      let shrinkRatio = .15;
+      let shrinkRatio = settings.shrinkRatio;
       var top = el.offsetTop;
       var left = el.offsetLeft;
       var width = el.offsetWidth;
@@ -193,6 +193,7 @@
         return;
       }
 
+
       let header = document.querySelector('#header'),
           headerRect = header.getBoundingClientRect(),
           hBottom = headerRect.bottom > 0 ? headerRect.bottom + 'px' : '0px';
@@ -206,19 +207,21 @@
   //BuildSidebar
   function init(){
     let style =  document.querySelector('[data-wm-plugin="section-sidenav"][data-style]') == null ? 'dots' : document.querySelector('[data-wm-plugin="section-sidenav"][data-style]').getAttribute('data-style'),
-        color =  document.querySelector('[data-wm-plugin="section-sidenav"][data-color]') == null ? 'black' : document.querySelector('[data-wm-plugin="section-sidenav"][data-color]').getAttribute('data-color');
+        color =  document.querySelector('[data-wm-plugin="section-sidenav"][data-color]') == null ? 'black' : document.querySelector('[data-wm-plugin="section-sidenav"][data-color]').getAttribute('data-color'),
+        shrinkRatio =  document.querySelector('[data-wm-plugin="section-sidenav"][data-shrink-ratio]') == null ? .15 : document.querySelector('[data-wm-plugin="section-sidenav"][data-shrink-ratio]').getAttribute('data-shrink-ratio');
     let settings = { 
       parentElem: '.page-section',
       sidebarPlacement: 'article.sections',
       style: style,
-      color:color
+      color: color,
+      shrinkRatio: shrinkRatio
     };
     buildSidebarNav(indicators, settings);
 
     //Sidebar Actions
     let mySections = document.querySelectorAll('[data-sidebar-item]');
     let sidebarNav = document.querySelector('#wm-sidebar-nav');
-    new SidebarNav(mySections, sidebarNav);
+    new SidebarNav(mySections, sidebarNav, settings);
   }
   let indicators = '[data-wm-plugin="section-sidenav"]';
   if (document.querySelectorAll(indicators).length){
